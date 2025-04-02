@@ -1,5 +1,8 @@
-package com.example.unimatch.ui.screens.login
+package com.example.unimatch.screens.login
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -12,6 +15,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -19,9 +24,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.unimatch.R
 import com.example.unimatch.ui.theme.UniMatchTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun LoginScreen() {
     var email by remember { mutableStateOf("") }
@@ -31,21 +37,27 @@ fun LoginScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.Gray)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Logo o título
         Text(
             text = "UNI MATCH",
-            fontSize = 36.sp,
+            fontSize = 40.sp,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(bottom = 48.dp)
-
+            color = Color.White,
+            modifier = Modifier.padding(bottom = 10.dp)
         )
 
-        // Email input
+        Image(
+            painter = painterResource(id = R.drawable.logo),
+            contentDescription = "Logo de la app",
+            modifier = Modifier
+                .size(200.dp)
+                .padding(bottom = 16.dp)
+        )
+
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
@@ -56,14 +68,11 @@ fun LoginScreen() {
                     contentDescription = "Email Icon"
                 )
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp),
+            modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             shape = RoundedCornerShape(12.dp)
         )
 
-        // Password input
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
@@ -78,55 +87,56 @@ fun LoginScreen() {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
                     Icon(
                         imageVector = if (passwordVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility,
-                        contentDescription = if (passwordVisible) "Hide password" else "Show password"
+                        contentDescription = "Toggle Password Visibility"
                     )
                 }
             },
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 24.dp),
+            modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             shape = RoundedCornerShape(12.dp)
         )
 
-        // Botón de login
         Button(
             onClick = { /* Implementar lógica de login */ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
+            modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp)
         ) {
-            Text(
-                text = "Iniciar Sesión",
-                fontSize = 18.sp
-            )
+            Text(text = "Iniciar Sesión")
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        TextButton(onClick = { /* Implementar lógica para recuperar contraseña */ }) {
+            Text(text = "¿Olvidaste tu contraseña?", color = Color.White)
+        }
 
-        // Texto para recuperar contraseña
-        TextButton(
-            onClick = { /* Implementar lógica para recuperar contraseña */ },
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            Text(
-                text = "¿Olvidaste tu contraseña?",
-                color = MaterialTheme.colorScheme.primary
+            Image(
+                painter = painterResource(id = R.drawable.facebook),
+                contentDescription = "Facebook Login",
+                modifier = Modifier
+                    .size(50.dp)
+                    .clickable { /* Implementar lógica para login con Facebook */ }
+            )
+            Image(
+                painter = painterResource(id = R.drawable.google),
+                contentDescription = "Google Login",
+                modifier = Modifier
+                    .size(50.dp)
+                    .clickable { /* Implementar lógica para login con Google */ }
             )
         }
 
-        // Opción para registrarse
         Row(
             modifier = Modifier.padding(top = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text("¿No tienes una cuenta?")
-            TextButton(
-                onClick = { /* Implementar navegación a pantalla de registro */ }
-            ) {
-                Text("Regístrate")
+            Text("¿No tienes una cuenta?", color = Color.White)
+            TextButton(onClick = { /* Implementar navegación a pantalla de registro */ }) {
+                Text("Regístrate", color = Color.White, fontWeight = FontWeight.Bold)
             }
         }
     }

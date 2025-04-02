@@ -7,7 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
-import com.example.unimatch.ui.screens.login.LoginScreen
+import com.example.unimatch.screens.login.LoginScreen
+import com.example.unimatch.screens.register.RegisterScreen
 import com.example.unimatch.ui.theme.UniMatchTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,6 +22,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     LoginScreen()
+                    RegisterScreen()
                 }
             }
         }
