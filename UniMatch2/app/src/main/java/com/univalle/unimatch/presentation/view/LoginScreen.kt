@@ -36,10 +36,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.univalle.unimatch.R
+import com.univalle.unimatch.ui.theme.UvMatchTheme
 
 
 @Composable
@@ -167,9 +170,19 @@ fun LoginScreen(navController: NavController) {
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     textDecoration = TextDecoration.Underline, // Subrayado
-                    modifier = Modifier.clickable { /* TODO: Logica de la pantalla de registro */ }
+                    modifier = Modifier.clickable {
+                        navController.navigate("register_screen") // Navega a la pantalla de registro
+                    }
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LoginScreenPreview() {
+    UvMatchTheme {
+        LoginScreen(navController = rememberNavController())
     }
 }

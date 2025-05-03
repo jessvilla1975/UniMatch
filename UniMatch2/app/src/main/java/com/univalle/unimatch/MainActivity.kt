@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.univalle.unimatch.ui.theme.UvMatchTheme
 import com.univalle.unimatch.presentation.view.LoginScreen
+import com.univalle.unimatch.presentation.view.RegisterScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -27,6 +28,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable("login_screen") { LoginScreen(navController) }
+                        composable("register_screen") { RegisterScreen(navController) }
                     }
 
                 }
