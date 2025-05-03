@@ -170,7 +170,9 @@ fun LoginScreen(navController: NavController) {
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     textDecoration = TextDecoration.Underline, // Subrayado
-                    modifier = Modifier.clickable { /* TODO: Logica de la pantalla de registro */ }
+                    modifier = Modifier.clickable {
+                        navController.navigate("register_screen") // Navega a la pantalla de registro
+                    }
                 )
             }
         }
