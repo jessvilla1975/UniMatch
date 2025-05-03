@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.univalle.unimatch.ui.theme.UvMatchTheme
 import com.univalle.unimatch.presentation.view.LoginScreen
 import com.univalle.unimatch.presentation.view.RegisterScreen
+import com.univalle.unimatch.presentation.view.VerifyAccountScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -29,6 +30,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable("login_screen") { LoginScreen(navController) }
                         composable("register_screen") { RegisterScreen(navController) }
+                        composable("verifyAccount_screen") { VerifyAccountScreen(navController) }
                     }
 
                 }
