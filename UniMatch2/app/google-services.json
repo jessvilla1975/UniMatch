@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "768266897298",
-    "project_id": "tinderclone-11b74",
-    "storage_bucket": "tinderclone-11b74.firebasestorage.app"
+    "project_number": "363669776837",
+    "project_id": "uvmatch",
+    "storage_bucket": "uvmatch.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:768266897298:android:f62b2bf1b152f419fbe34b",
+        "mobilesdk_app_id": "1:363669776837:android:ff5f437a4cf2727e7203ac",
         "android_client_info": {
-          "package_name": "com.example.unimatch"
+          "package_name": "com.univalle.unimatch"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBErGuAuv1styfuFwKjN2h3HTYaziY1wXA"
+          "current_key": "AIzaSyCMvYjSSLbs8sh32nXuIgrOFTccqbJjJ6M"
         }
       ],
       "services": {

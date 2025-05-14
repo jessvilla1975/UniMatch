@@ -2,7 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
+    //id("com.android.application")
+    // Add the Google services Gradle plugin
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -41,25 +43,22 @@ android {
 }
 
 dependencies {
-
     // Import the Firebase BoM
-    implementation(platform(libs.firebase.bom))
-
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
 
     // TODO: Add the dependencies for Firebase products you want to use
     // When using the BoM, don't specify versions in Firebase dependencies
-    implementation(libs.firebase.analytics)
-
+    implementation("com.google.firebase:firebase-analytics")
 
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
 
-    implementation (libs.firebase.auth) // Firebase Auth
     implementation (libs.androidx.lifecycle.viewmodel.ktx) // ViewModel
     implementation (libs.androidx.lifecycle.livedata.ktx)  // LiveData
     implementation (libs.androidx.lifecycle.viewmodel.compose) // ViewModel para Jetpack Compose
 
     implementation (libs.material3)
+    implementation (libs.androidx.material.icons.extended)
 
     implementation(libs.androidx.navigation.compose.v275)
 
