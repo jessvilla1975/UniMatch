@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -30,7 +31,7 @@ fun VerifyAccountScreen (navController: NavController){
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFCD1F32)), // Color de Fondo
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.TopCenter
     ){
         Column (
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -91,6 +92,13 @@ fun VerifyAccountScreen (navController: NavController){
                 value = verificationCode,
                 onValueChange = { verificationCode = it },
                 label = { Text("Código de verificación", color = Color.White) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Lock, // Ícono que se muestra al inicio del campo
+                        contentDescription = "Ícono de código",
+                        tint = Color.White
+                    )
+                },
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = PasswordVisualTransformation(), // Para ocultar el código
                 colors = TextFieldDefaults.colors(
