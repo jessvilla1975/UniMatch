@@ -23,16 +23,50 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import androidx.compose.animation.core.animateFloatAsState
 import com.univalle.unimatch.ui.theme.UvMatchTheme
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.draw.clip
+
 
 
 @Composable
 fun InterestsScreen(navController: NavController) {
     val maxSelection = 5
-    val intereses = listOf("Cine", "Harry Potter", "Bicicleta", "Corridos", "Running", "Spa", "Techno", "Gastronomia", "Viajes", "Voleyball",
-        "Gimnasia", "Videojuegos", "Moda", "Meditacion", "Perros", "Sushi", "Fútbol", "Tenis", "Teatro", "Basketball", "Poesía", "Motocicletas",
-    "Natación", "Rock", "Instagram", "Pop", "Termales", "Caminatas")
+    val intereses = listOf(
+        "Cine",
+        "Harry Potter",
+        "Bicicleta",
+        "Corridos",
+        "Running",
+        "Spa",
+        "Techno",
+        "Gastronomia",
+        "Viajes",
+        "Voleyball",
+        "Gimnasia",
+        "Videojuegos",
+        "Moda",
+        "Meditacion",
+        "Perros",
+        "Sushi",
+        "Fútbol",
+        "Tenis",
+        "Teatro",
+        "Basketball",
+        "Poesía",
+        "Motocicletas",
+        "Natación",
+        "Rock",
+        "Instagram",
+        "Pop",
+        "Termales",
+        "Caminatas"
+    )
     val selectedIntereses = remember { mutableStateListOf<String>() }
+    val progress by animateFloatAsState(
+        targetValue = selectedIntereses.size / maxSelection.toFloat()
+    )
 
     Box(
         modifier = Modifier
@@ -57,6 +91,16 @@ fun InterestsScreen(navController: NavController) {
                     )
                 }
             }
+            // Barra de progreso
+            LinearProgressIndicator(
+                progress = progress,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(8.dp)
+                    .clip(RoundedCornerShape(50)),
+                color = Color.White,
+                trackColor = Color.White.copy(alpha = 0.3f)
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 

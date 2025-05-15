@@ -61,6 +61,9 @@ dependencies {
 
     // para la vista de intereses
     implementation("androidx.compose.foundation:foundation:1.8.1")
+    // para la barra
+    implementation("androidx.compose.animation:animation:1.8.1")
+
 
     implementation (libs.material3)
 
