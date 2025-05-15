@@ -54,9 +54,9 @@ fun WelcomeScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Ícono central (puede reemplazarse con un logo)
+            // Ícono central (puede reemplazarse con el logo de la universidad de acuerdo al figma)
             Image(
-                painter = painterResource(id = R.drawable.logo), // Usa tu logo aquí
+                painter = painterResource(id = R.drawable.logo), // logo aquí
                 contentDescription = "Logo",
                 modifier = Modifier
                     .size(80.dp)
@@ -139,7 +139,6 @@ fun RuleItem(text: String) {
         )
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
