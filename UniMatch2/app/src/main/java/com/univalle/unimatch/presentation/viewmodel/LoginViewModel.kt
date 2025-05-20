@@ -4,13 +4,12 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.univalle.unimatch.data.repository.GoogleAuthClient
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 open class LoginViewModel: ViewModel() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val _loginResult = MutableStateFlow<Result<Boolean>?>(null)
-    open val loginResult: StateFlow<Result<Unit>?> = _loginResult
+    open val loginResult: MutableStateFlow<Result<Boolean>?> = _loginResult
 
     lateinit var googleAuthClient: GoogleAuthClient
 
