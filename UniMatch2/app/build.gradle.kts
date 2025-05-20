@@ -73,6 +73,12 @@ dependencies {
     implementation (libs.androidx.lifecycle.livedata.ktx)  // LiveData
     implementation (libs.androidx.lifecycle.viewmodel.compose) // ViewModel para Jetpack Compose
 
+    // para la vista de intereses
+    implementation("androidx.compose.foundation:foundation:1.8.1")
+    // para la barra
+    implementation("androidx.compose.animation:animation:1.8.1")
+
+
     implementation("io.coil-kt:coil-compose:2.2.2")
 
 
@@ -101,4 +107,6 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+
 }
