@@ -1,5 +1,9 @@
 package com.univalle.unimatch.presentation.view
 
+import android.app.Activity
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -25,10 +30,18 @@ import com.univalle.unimatch.R
 import com.univalle.unimatch.presentation.viewmodel.LoginViewModel
 import com.univalle.unimatch.ui.theme.UvMatchTheme
 import kotlinx.coroutines.launch
+import com.univalle.unimatch.data.repository.GoogleAuthClient
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(
+    navController: NavController,
+    loginViewModel: LoginViewModel? = null,
+    showSnackbars: Boolean = true // Para desactivar en previews
+) {
+    val viewModel = loginViewModel ?: viewModel()
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) } // Para el estado del icono de mostrar/ocultar Contraseña
@@ -36,6 +49,34 @@ fun LoginScreen(navController: NavController) {
     val loginResult by loginViewModel.loginResult.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
+
+    val context = LocalContext.current
+    val activity = context as Activity
+
+    val googleAuthClient = remember { GoogleAuthClient(context) }
+
+    val googleLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val data = result.data
+        if (result.resultCode == Activity.RESULT_OK && data != null) {
+            coroutineScope.launch {
+                val user = googleAuthClient.signInWithGoogle(data)
+                if (user != null) {
+                    Log.d("Login", "Usuario logueado: ${user.email}")
+                    navController.navigate("home_screen") {
+                        popUpTo("login_screen") { inclusive = true }
+                    }
+                } else {
+                    snackbarHostState.showSnackbar("Error al iniciar sesión con Google")
+                }
+            }
+        } else {
+            coroutineScope.launch {
+                snackbarHostState.showSnackbar("Inicio de sesión cancelado")
+            }
+        }
+    }
 
     Scaffold (
         modifier = Modifier.fillMaxSize(),
@@ -165,12 +206,15 @@ fun LoginScreen(navController: NavController) {
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                // Botones de Facebook y Google
+                // Boton de Google
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    IconButton(onClick = { /* Login con Google */ }) {
+                    IconButton(onClick = {
+                        val signInIntent = googleAuthClient.getSignInIntent()
+                        googleLauncher.launch(signInIntent)
+                }) {
                         Image(painterResource(id = R.drawable.ic_google), contentDescription = "Google")
                     }
                 }
@@ -210,10 +254,4 @@ fun LoginScreen(navController: NavController) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun LoginScreenPreview() {
-    UvMatchTheme {
-        LoginScreen(navController = rememberNavController())
-    }
-}
+

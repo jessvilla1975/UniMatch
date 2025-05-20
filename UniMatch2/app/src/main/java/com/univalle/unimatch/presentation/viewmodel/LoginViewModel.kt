@@ -2,16 +2,19 @@ package com.univalle.unimatch.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.univalle.unimatch.data.repository.GoogleAuthClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class LoginViewModel: ViewModel() {
+open class LoginViewModel: ViewModel() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val _loginResult = MutableStateFlow<Result<Boolean>?>(null)
-    val loginResult: StateFlow<Result<Boolean>?> = _loginResult
+    open val loginResult: StateFlow<Result<Unit>?> = _loginResult
 
-    fun loginUser(email: String, password: String) {
+    lateinit var googleAuthClient: GoogleAuthClient
+
+    open fun loginUser(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -22,7 +25,12 @@ class LoginViewModel: ViewModel() {
             }
     }
 
-    fun resetLoginResult() {
+    open fun resetLoginResult() {
         _loginResult.value = null
     }
+
+    fun setGoogleClient(client: GoogleAuthClient) {
+        googleAuthClient = client
+    }
+
 }

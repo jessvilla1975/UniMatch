@@ -138,10 +138,3 @@ fun RegisterScreen (navController: NavController){
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun RegisterScreenPreview() {
-    UvMatchTheme {
-        RegisterScreen(navController = rememberNavController())
-    }
-}

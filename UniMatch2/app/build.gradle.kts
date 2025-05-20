@@ -66,9 +66,15 @@ dependencies {
     implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
 
+    // Add Glide Library and Google Play Services Auth Library
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
     implementation (libs.androidx.lifecycle.viewmodel.ktx) // ViewModel
     implementation (libs.androidx.lifecycle.livedata.ktx)  // LiveData
     implementation (libs.androidx.lifecycle.viewmodel.compose) // ViewModel para Jetpack Compose
+
+    implementation("io.coil-kt:coil-compose:2.2.2")
+
 
     implementation (libs.material3)
     implementation (libs.androidx.material.icons.extended)
@@ -87,6 +93,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.auth.ktx)
+    implementation(libs.androidx.navigation.runtime.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

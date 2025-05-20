@@ -67,10 +67,3 @@ fun HomeScreen(navController: NavController) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    UvMatchTheme {
-        HomeScreen(navController = rememberNavController())
-    }
-}
