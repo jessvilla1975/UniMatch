@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -35,6 +36,7 @@ import com.univalle.unimatch.presentation.viewmodel.RegisterViewModel
 fun RegisterScreen(navController: NavController) {
     val viewModel: RegisterViewModel = viewModel()
     val genders = listOf("Masculino", "Femenino", "Otro")
+    val context = LocalContext.current
 
     Box(
         modifier = Modifier
@@ -180,9 +182,12 @@ fun RegisterScreen(navController: NavController) {
 
             Button(
                 onClick = {
-                    if (viewModel.validarCampos()) {
-                        navController.navigate("pantalla_de_verificacion")
-                    }
+                    viewModel.iniciarRegistro(
+                        context = context,
+                        onSuccess = {
+                            navController.navigate("verifyAccount_screen")
+                        },
+                    )
                 },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),

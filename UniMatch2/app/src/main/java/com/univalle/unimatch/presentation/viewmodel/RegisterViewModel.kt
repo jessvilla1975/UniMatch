@@ -1,15 +1,19 @@
 package com.univalle.unimatch.presentation.viewmodel
 
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.univalle.unimatch.data.repository.AuthRepository
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel(
+    private val authRepository: AuthRepository = AuthRepository()
+) : ViewModel() {
     var nombre by mutableStateOf("")
     var apellido by mutableStateOf("")
     var nombreCuenta by mutableStateOf("")
@@ -29,6 +33,11 @@ class RegisterViewModel : ViewModel() {
     var phoneNumberError by mutableStateOf<String?>(null)
     var birthDateError by mutableStateOf<String?>(null)
     var selectedGenderError by mutableStateOf<String?>(null)
+
+    var errorMessage by mutableStateOf<String?>(null)
+    var showError by mutableStateOf(false)
+
+    var isLoading by mutableStateOf(false)
 
     fun onNombreChange(value: String) {
         nombre = value
@@ -93,6 +102,37 @@ class RegisterViewModel : ViewModel() {
         selectedGender = value
         selectedGenderError = if (selectedGender.isBlank()) "Debes seleccionar un género" else null
 
+    }
+
+    fun iniciarRegistro(
+        context: Context,
+        onSuccess: () -> Unit,
+    ) {
+        if (!validarCampos()) {
+            errorMessage = ("Corrige los errores antes de continuar")
+            showError = true
+            return
+        }
+        isLoading = true
+        authRepository.registerUser(
+            email = email,
+            password = password,
+            nombre = nombre,
+            apellido = apellido,
+            nombreCuenta = nombreCuenta,
+            phoneNumber = phoneNumber,
+            birthDate = birthDate,
+            gender = selectedGender,
+            onSuccess = {
+                isLoading = false
+                onSuccess()
+            },
+            onError = { mensaje ->
+                isLoading = false
+                errorMessage = mensaje
+                showError = true
+            }
+        )
     }
 
     fun validarCampos(): Boolean {
