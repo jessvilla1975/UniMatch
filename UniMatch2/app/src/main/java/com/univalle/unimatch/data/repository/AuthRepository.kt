@@ -60,6 +60,12 @@ class AuthRepository(
                 }
             }
     }
-
+    fun actualizarVerificadoEnFirestore(uid: String, onComplete: () -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users").document(uid)
+            .update("verified", true)
+            .addOnSuccessListener { onComplete() }
+            .addOnFailureListener { onComplete() } // Igual continúa para no bloquear la app
+    }
     fun getCurrentUser() = auth.currentUser
 }

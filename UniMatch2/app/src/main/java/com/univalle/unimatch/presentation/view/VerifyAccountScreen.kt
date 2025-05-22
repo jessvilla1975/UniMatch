@@ -1,11 +1,11 @@
 package com.univalle.unimatch.presentation.view
 
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,11 +20,19 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.univalle.unimatch.R
+import com.univalle.unimatch.presentation.viewmodel.VerifyEmailViewModel
 import com.univalle.unimatch.ui.theme.UvMatchTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
-fun VerifyAccountScreen (navController: NavController){
-    var verificationCode by remember { mutableStateOf("") }
+fun VerifyAccountScreen (
+    navController: NavController,
+    viewModel: VerifyEmailViewModel = viewModel()
+){
+    val context = LocalContext.current
+    val isLoading = viewModel.isLoading
+
 
     Box(
         modifier = Modifier
@@ -80,51 +87,57 @@ fun VerifyAccountScreen (navController: NavController){
 
             // Subtítulo
             Text(
-                text = "INGRESA AQUÍ EL CÓDIGO QUE SE ENVIÓ A TU CORREO",
+                text = "INGRESA A TU CORREO Y VERIFICA CON EL LINK QUE LLEGO A TU CORREO",
                 fontSize = 14.sp,
                 color = Color.White,
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Campo de Código de Verificación
-            OutlinedTextField(
-                value = verificationCode,
-                onValueChange = { verificationCode = it },
-                label = { Text("Código de verificación", color = Color.White) },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Lock, // Ícono que se muestra al inicio del campo
-                        contentDescription = "Ícono de código",
-                        tint = Color.White
-                    )
-                },
-                modifier = Modifier.fillMaxWidth(),
-                visualTransformation = PasswordVisualTransformation(), // Para ocultar el código
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent,
-                    cursorColor = Color.White,
-                    focusedIndicatorColor = Color.White,
-                    unfocusedIndicatorColor = Color.White,
-                    focusedTextColor = Color.White,   // Color del texto cuando el campo está enfocado
-                    unfocusedTextColor = Color.White  // Color del texto cuando el campo NO está enfocado
-                )
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-
             // Botón de Verificar Cuenta
             Button(
-                onClick = { /* Lógica de verificación */ },
+                onClick = {
+                    viewModel.checkEmailVerified(
+                        onVerified = {
+                            Toast.makeText(context, "Cuenta verificada exitosamente", Toast.LENGTH_SHORT).show()
+                            navController.navigate("interests_screen") {
+                                popUpTo("verify_account_screen") { inclusive = true }
+                            }
+                        },
+                        onNotVerified = {
+                            Toast.makeText(context, "Tu correo aún no ha sido verificado", Toast.LENGTH_SHORT).show()
+                        }
+                    )
+                },
+                enabled = !isLoading && !viewModel.isVerified, // deshabilitado si está verificado o cargando
                 modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (!isLoading && !viewModel.isVerified) Color.White else Color.LightGray
+                ),
                 border = BorderStroke(2.dp, Color.White),
                 shape = RoundedCornerShape(8.dp)
             ) {
-                Text("VERIFICAR CUENTA", color = Color.Red, fontWeight = FontWeight.Bold)
+                Text(
+                    text = if (viewModel.isVerified) "CUENTA VERIFICADA" else "VERIFICAR CUENTA",
+                    color = if (viewModel.isVerified) Color.Gray else Color.Red,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // 🔄 Loader debajo del botón
+            if (isLoading) {
+                CircularProgressIndicator(
+                    color = Color.White,
+                    modifier = Modifier
+                        .size(32.dp)
+                        .align(Alignment.CenterHorizontally)
+                )
+            }
+
             }
         }
-    }
 
 }
 
