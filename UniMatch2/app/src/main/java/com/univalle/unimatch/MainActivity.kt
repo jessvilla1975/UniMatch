@@ -10,10 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.univalle.unimatch.presentation.view.ChatScreen
 import com.univalle.unimatch.presentation.view.HomeScreen
 import com.univalle.unimatch.presentation.view.InterestsScreen
 import com.univalle.unimatch.ui.theme.UvMatchTheme
 import com.univalle.unimatch.presentation.view.LoginScreen
+import com.univalle.unimatch.presentation.view.ProfileScreen
 import com.univalle.unimatch.presentation.view.RegisterScreen
 import com.univalle.unimatch.presentation.view.VerifyAccountScreen
 
@@ -27,14 +29,16 @@ class MainActivity : ComponentActivity() {
                 Scaffold (modifier = Modifier.fillMaxSize()){ innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "login_screen",
+                        startDestination = "Home_screen",
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable("login_screen") { LoginScreen(navController) }
-                        composable("register_screen") { RegisterScreen(navController) }
-                        composable("verifyAccount_screen") { VerifyAccountScreen(navController) }
-                        composable("home_screen") {HomeScreen(navController)}
-                        composable("interests_screen") { InterestsScreen(navController)}
+                        composable("Register_screen") { RegisterScreen(navController) }
+                        composable("VerifyAccount_screen") { VerifyAccountScreen(navController) }
+                        composable("Home_screen") {HomeScreen(navController)}
+                        composable("Interests_screen") { InterestsScreen(navController)}
+                        composable("Profile_screen") { ProfileScreen(navController) }
+                        composable("Chat_screen") { ChatScreen(navController) }
                     }
 
                 }
