@@ -12,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,7 +30,11 @@ fun WelcomeScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFB00020)) // Color de fondo rojo oscuro
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(Color(0xFFB30811), Color(0xFF4D0307))
+                )
+            )
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

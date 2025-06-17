@@ -27,7 +27,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import com.univalle.unimatch.ui.theme.UvMatchTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.draw.clip
-
+import androidx.compose.ui.graphics.Brush
 
 
 @Composable
@@ -71,7 +71,11 @@ fun InterestsScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFB00020))
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(Color(0xFFB30811), Color(0xFF4D0307))
+                )
+            )
     ) {
         Column(
             modifier = Modifier
