@@ -18,7 +18,7 @@ import com.univalle.unimatch.presentation.view.LoginScreen
 import com.univalle.unimatch.presentation.view.ProfileScreen
 import com.univalle.unimatch.presentation.view.RegisterScreen
 import com.univalle.unimatch.presentation.view.VerifyAccountScreen
-
+import com.univalle.unimatch.presentation.view.PhotoUploadScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +39,7 @@ class MainActivity : ComponentActivity() {
                         composable("Interests_screen") { InterestsScreen(navController)}
                         composable("Profile_screen") { ProfileScreen(navController) }
                         composable("Chat_screen") { ChatScreen(navController) }
+			composable("photo_upload_screen") { PhotoUploadScreen(navController = navController) }
                     }
 
                 }

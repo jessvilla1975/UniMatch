@@ -163,7 +163,7 @@ fun InterestsScreen(navController: NavController) {
 
             Button(
                 onClick = {
-                    // Acción cuando presionas continuar
+                    navController.navigate("photo_upload_screen")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
