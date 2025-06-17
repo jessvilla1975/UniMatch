@@ -26,7 +26,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.foundation.Image
+<<<<<<< HEAD
 import androidx.compose.material3.Scaffold
+=======
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+>>>>>>> faebb7a07e9a2f7b32a6c0496ff1002cdec17b01
 import androidx.compose.ui.res.painterResource
 import com.univalle.unimatch.R
 import com.univalle.unimatch.ui.theme.UvMatchTheme
@@ -34,12 +43,22 @@ import com.univalle.unimatch.ui.theme.UvMatchTheme
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ChatScreen(navController: NavController) {
+<<<<<<< HEAD
     Scaffold{
+=======
+    var expanded by remember { mutableStateOf(false)}
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+>>>>>>> faebb7a07e9a2f7b32a6c0496ff1002cdec17b01
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.White)
         ) {
+<<<<<<< HEAD
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -54,6 +73,71 @@ fun ChatScreen(navController: NavController) {
                     .verticalScroll(rememberScrollState())
             ) {
                 Box {
+=======
+            Box {
+                Image(
+                    painter = painterResource(id = R.drawable.header),
+                    contentDescription = "Header",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 50.dp, start = 70.dp, end = 70.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // Botón: Perfil con menu desplegable
+                    Box {
+                    IconButton(
+                        onClick = { expanded = true },
+                        modifier = Modifier.size(70.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_user_white),
+                            contentDescription = "Profile",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.size(50.dp)
+                        )
+                    }
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false }
+                        ) {
+                            DropdownMenuItem(
+                                onClick = {
+                                    expanded = false
+                                    navController.navigate("Profile_screen")
+                                },
+                                text = { Text("Ver perfil") }
+                            )
+                            DropdownMenuItem(
+                                onClick = {
+                                    expanded = false
+                                    navController.navigate("Login_screen")
+                                },
+                                text = { Text("Cerrar sesión") }
+                            )
+                        }
+                    }
+                    // Botón: Inicio
+                    IconButton(
+                        onClick = { navController.navigate("Home_screen") },
+                        modifier = Modifier
+                            .size(80.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_uvmatch),
+                            contentDescription = "Home",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.size(60.dp)
+                        )
+                    }
+                    // Botón: Chat
+>>>>>>> faebb7a07e9a2f7b32a6c0496ff1002cdec17b01
                     Image(
                         painter = painterResource(id = R.drawable.header),
                         contentDescription = "Header",
