@@ -1,6 +1,5 @@
 package com.univalle.unimatch.presentation.view
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -26,54 +25,37 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.foundation.Image
-<<<<<<< HEAD
-import androidx.compose.material3.Scaffold
-=======
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
->>>>>>> faebb7a07e9a2f7b32a6c0496ff1002cdec17b01
 import androidx.compose.ui.res.painterResource
 import com.univalle.unimatch.R
 import com.univalle.unimatch.ui.theme.UvMatchTheme
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ChatScreen(navController: NavController) {
-<<<<<<< HEAD
-    Scaffold{
-=======
     var expanded by remember { mutableStateOf(false)}
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
->>>>>>> faebb7a07e9a2f7b32a6c0496ff1002cdec17b01
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
-        ) {
-<<<<<<< HEAD
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .weight(1f)
-                    .background(
-                        Brush.linearGradient(
-                            colors = listOf(Color(0xFFB30811), Color(0xFF000000)),
-                            start = Offset.Zero,
-                            end = Offset(0f, Float.POSITIVE_INFINITY)
-                        )
+                .weight(1f)
+                .background(
+                    Brush.linearGradient(
+                        colors = listOf(Color(0xFFB30811), Color(0xFF4D0307)),
+                        start = Offset.Zero,
+                        end = Offset(0f, Float.POSITIVE_INFINITY)
                     )
-                    .verticalScroll(rememberScrollState())
-            ) {
-                Box {
-=======
+                )
+                .verticalScroll(rememberScrollState())
+        ) {
             Box {
                 Image(
                     painter = painterResource(id = R.drawable.header),
@@ -92,17 +74,17 @@ fun ChatScreen(navController: NavController) {
                 ) {
                     // Botón: Perfil con menu desplegable
                     Box {
-                    IconButton(
-                        onClick = { expanded = true },
-                        modifier = Modifier.size(70.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_user_white),
-                            contentDescription = "Profile",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.size(50.dp)
-                        )
-                    }
+                        IconButton(
+                            onClick = { expanded = true },
+                            modifier = Modifier.size(70.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_user_white),
+                                contentDescription = "Profile",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.size(60.dp)
+                            )
+                        }
                         DropdownMenu(
                             expanded = expanded,
                             onDismissRequest = { expanded = false }
@@ -137,73 +119,29 @@ fun ChatScreen(navController: NavController) {
                         )
                     }
                     // Botón: Chat
->>>>>>> faebb7a07e9a2f7b32a6c0496ff1002cdec17b01
                     Image(
-                        painter = painterResource(id = R.drawable.header),
-                        contentDescription = "Header",
+                        painter = painterResource(id = R.drawable.ic_chat_white),
+                        contentDescription = "Chats",
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxWidth()
+                        modifier = Modifier.size(70.dp).background(Color(0xFFED4949), shape = CircleShape)
                     )
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 50.dp, start = 70.dp, end = 70.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        // Botón: Perfil
-                        IconButton(
-                            onClick = { navController.navigate("Profile_screen") },
-                            modifier = Modifier
-                                .size(70.dp)
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_user_white),
-                                contentDescription = "Profile",
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier.size(50.dp)
-                            )
-                        }
-                        // Botón: Inicio
-                        IconButton(
-                            onClick = { navController.navigate("Home_screen") },
-                            modifier = Modifier
-                                .size(80.dp)
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_uvmatch),
-                                contentDescription = "Home",
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier.size(60.dp)
-                            )
-                        }
-                        // Botón: Chat
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_chat_white),
-                            contentDescription = "Chats",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.size(70.dp).background(Color(0xFFED4949), shape = CircleShape)
-                        )
-                    }
                 }
-                ChatListSection()
-                Column(
-                    horizontalAlignment = Alignment.End,
+            }
+            ChatListSection()
+            Column(
+                horizontalAlignment = Alignment.End,
+                modifier = Modifier
+                    .padding(bottom = 20.dp)
+                    .fillMaxWidth()
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_logout_white),
+                    contentDescription = "btn_logout",
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .padding(bottom = 20.dp)
-                        .fillMaxWidth()
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_logout_white),
-                        contentDescription = "btn_logout",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .padding(end = 10.dp)
-                            .size(40.dp)
-                    )
-                }
+                        .padding(end = 10.dp)
+                        .size(40.dp)
+                )
             }
         }
     }
@@ -214,9 +152,8 @@ fun ChatScreen(navController: NavController) {
 fun ChatListSection() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(5.dp),
         modifier = Modifier
-            .padding(top = 5.dp)
+            .padding(bottom = 20.dp)
             .fillMaxWidth()
     ) {
         ChatItem("Mariana Zapata", "Como amaneciste?", "Hace 1 minuto", "https://storage.googleapis.com/tagjs-prod.appspot.com/v1/WOmSfnUytF/fk7r2o9v_expires_30_days.png", 200)
