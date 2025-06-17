@@ -25,12 +25,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.foundation.Image
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import com.univalle.unimatch.R
 import com.univalle.unimatch.ui.theme.UvMatchTheme
 
 @Composable
 fun ChatScreen(navController: NavController) {
+    var expanded by remember { mutableStateOf(false)}
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -65,11 +72,11 @@ fun ChatScreen(navController: NavController) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Botón: Perfil
+                    // Botón: Perfil con menu desplegable
+                    Box {
                     IconButton(
-                        onClick = { navController.navigate("Profile_screen") },
-                        modifier = Modifier
-                            .size(70.dp)
+                        onClick = { expanded = true },
+                        modifier = Modifier.size(70.dp)
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_user_white),
@@ -77,6 +84,26 @@ fun ChatScreen(navController: NavController) {
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.size(50.dp)
                         )
+                    }
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false }
+                        ) {
+                            DropdownMenuItem(
+                                onClick = {
+                                    expanded = false
+                                    navController.navigate("Profile_screen")
+                                },
+                                text = { Text("Ver perfil") }
+                            )
+                            DropdownMenuItem(
+                                onClick = {
+                                    expanded = false
+                                    navController.navigate("Login_screen")
+                                },
+                                text = { Text("Cerrar sesión") }
+                            )
+                        }
                     }
                     // Botón: Inicio
                     IconButton(
