@@ -100,8 +100,8 @@ fun VerifyAccountScreen (
                     viewModel.checkEmailVerified(
                         onVerified = {
                             Toast.makeText(context, "Cuenta verificada exitosamente", Toast.LENGTH_SHORT).show()
-                            navController.navigate("interests_screen") {
-                                popUpTo("verify_account_screen") { inclusive = true }
+                            navController.navigate("Interests_screen") {
+                                popUpTo("VerifyAccount_screen") { inclusive = true }
                             }
                         },
                         onNotVerified = {
