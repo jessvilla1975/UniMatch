@@ -1,5 +1,6 @@
 package com.univalle.unimatch
 
+import ProfileScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,10 +16,9 @@ import com.univalle.unimatch.presentation.view.HomeScreen
 import com.univalle.unimatch.presentation.view.InterestsScreen
 import com.univalle.unimatch.ui.theme.UvMatchTheme
 import com.univalle.unimatch.presentation.view.LoginScreen
-import com.univalle.unimatch.presentation.view.ProfileScreen
 import com.univalle.unimatch.presentation.view.RegisterScreen
 import com.univalle.unimatch.presentation.view.VerifyAccountScreen
-import com.univalle.unimatch.presentation.view.PhotoUploadScreen
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,6 @@ class MainActivity : ComponentActivity() {
                         composable("Interests_screen") { InterestsScreen(navController)}
                         composable("Profile_screen") { ProfileScreen(navController) }
                         composable("Chat_screen") { ChatScreen(navController) }
-			composable("photo_upload_screen") { PhotoUploadScreen(navController = navController) }
                     }
 
                 }

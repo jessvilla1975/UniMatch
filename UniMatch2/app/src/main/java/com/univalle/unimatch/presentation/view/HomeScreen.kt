@@ -3,9 +3,7 @@ package com.univalle.unimatch.presentation.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,14 +14,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
-import com.skydoves.landscapist.ImageOptions
-import com.skydoves.landscapist.coil.CoilImage
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.univalle.unimatch.R
 import com.univalle.unimatch.ui.theme.UvMatchTheme
 
 @Composable
@@ -31,15 +27,13 @@ fun HomeScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-    ) {
-        // Imagen principal del perfil
-        AsyncImage(
-            model = "https://i.pinimg.com/1200x/2d/ac/94/2dac94ced0370e8ca26d9756eccff0ed.jpg",
-            contentDescription = "Imagen de perfil",
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
-        )
-
+    )   {
+        Image (
+            painter = painterResource(id = R.drawable.imagentemporal),
+        contentDescription = "Imagen de perfil",
+        contentScale = ContentScale.Crop,
+        modifier = Modifier.fillMaxSize()
+    )
         // Degradado inferior para texto legible
         Box(
             modifier = Modifier
@@ -73,11 +67,11 @@ fun HomeScreen(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(top = 4.dp, bottom = 24.dp)
             ) {
-                AsyncImage(
-                    model = "https://storage.googleapis.com/tagjs-prod.appspot.com/v1/WOmSfnUytF/ra48qhum_expires_30_days.png",
+                Image(
+                    painter = painterResource(id = R.drawable.ic_location),
                     contentDescription = "Icono ubicación",
                     modifier = Modifier
-                        .size(20.dp)
+                        .size(35.dp)
                         .padding(end = 8.dp)
                 )
                 Text(
@@ -94,38 +88,55 @@ fun HomeScreen(navController: NavController) {
             ) {
                 val buttonSize = 60.dp
 
-                IconButton(onClick = { /* Rewind */ }) {
-                    AsyncImage(
-                        model = "https://storage.googleapis.com/tagjs-prod.appspot.com/v1/WOmSfnUytF/hzez4bz5_expires_30_days.png",
+                IconButton(onClick = { /* Rewind */ },
+                    modifier = Modifier
+                        .size(60.dp)
+                        .background(Color(0xFFDF0814), shape = CircleShape)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_rewind),
                         contentDescription = "Rewind",
-                        modifier = Modifier.size(buttonSize)
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.size(45.dp)
                     )
                 }
 
                 IconButton(onClick = { /* Dislike */ },
                     modifier = Modifier
-                    .size(50.dp)
-                    .background(Color(0xFFED4949), shape = CircleShape)) {
-                    AsyncImage(
-                        model = "https://storage.googleapis.com/tagjs-prod.appspot.com/v1/WOmSfnUytF/w65cxr86_expires_30_days.png",
+                        .size(60.dp)
+                        .background(Color(0xFFDF0814), shape = CircleShape)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_dislike),
                         contentDescription = "Dislike",
-                        modifier = Modifier.size(buttonSize)
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.size(45.dp)
                     )
                 }
 
-                IconButton(onClick = { /* Like */ }) {
-                    AsyncImage(
-                        model = "https://storage.googleapis.com/tagjs-prod.appspot.com/v1/WOmSfnUytF/mfiplr2f_expires_30_days.png",
+                IconButton(onClick = { /* Like */ },
+                    modifier = Modifier
+                        .size(60.dp)
+                        .background(Color(0xFFDF0814), shape = CircleShape)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_like),
                         contentDescription = "Like",
-                        modifier = Modifier.size(buttonSize)
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.size(45.dp)
                     )
                 }
 
-                IconButton(onClick = { /* Super Like */ }) {
-                    AsyncImage(
-                        model = "https://storage.googleapis.com/tagjs-prod.appspot.com/v1/WOmSfnUytF/2ll4ijk6_expires_30_days.png",
-                        contentDescription = "Super Like",
-                        modifier = Modifier.size(buttonSize)
+                IconButton(onClick = { /* Super Like */ },
+                    modifier = Modifier
+                        .size(60.dp)
+                        .background(Color(0xFFDF0814), shape = CircleShape)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_superlike),
+                        contentDescription = "SuperLike",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.size(45.dp)
                     )
                 }
             }
@@ -145,18 +156,22 @@ fun HomeScreen(navController: NavController) {
                 modifier = Modifier
                     .size(70.dp)
             ) {
-                AsyncImage(
-                    model = "https://storage.googleapis.com/tagjs-prod.appspot.com/v1/WOmSfnUytF/0yh5whgv_expires_30_days.png",
-                    contentDescription = "Perfil",
-                    modifier = Modifier.size(50.dp)
+                Image(
+                    painter = painterResource(id = R.drawable.ic_user_white),
+                    contentDescription = "Profile",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.
+                    size(60.dp).background(Color(0xFFDF0814), shape = CircleShape)
                 )
             }
 
             // Botón: Logo central (sin fondo)
-            AsyncImage(
-                model = "https://storage.googleapis.com/tagjs-prod.appspot.com/v1/WOmSfnUytF/2tpqvq7u_expires_30_days.png",
-                contentDescription = "Logo",
-                modifier = Modifier.size(80.dp).background(Color(0xFFED4949), shape = CircleShape)
+            Image(
+                painter = painterResource(id = R.drawable.ic_uvmatch),
+                contentDescription = "Home",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.
+                size(90.dp).background(Color(0xFFDF0814), shape = CircleShape)
             )
 
             // Botón: Chat
@@ -165,10 +180,12 @@ fun HomeScreen(navController: NavController) {
                 modifier = Modifier
                     .size(70.dp)
             ) {
-                AsyncImage(
-                    model = "https://storage.googleapis.com/tagjs-prod.appspot.com/v1/WOmSfnUytF/wqcbuq4f_expires_30_days.png",
+                Image(
+                    painter = painterResource(id = R.drawable.ic_chat_white),
                     contentDescription = "Chat",
-                    modifier = Modifier.size(50.dp)
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(60.dp).background(Color(0xFFDF0814), shape = CircleShape)
                 )
             }
         }
