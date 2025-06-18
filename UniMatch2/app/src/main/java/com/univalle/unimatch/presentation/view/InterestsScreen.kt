@@ -28,10 +28,13 @@ import com.univalle.unimatch.ui.theme.UvMatchTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
+import com.univalle.unimatch.presentation.viewmodel.InterestsViewModel
 
 
 @Composable
-fun InterestsScreen(navController: NavController) {
+fun InterestsScreen(navController: NavController, viewModel: InterestsViewModel = InterestsViewModel()) {
     val maxSelection = 5
     val intereses = listOf(
         "Cine",
@@ -68,6 +71,7 @@ fun InterestsScreen(navController: NavController) {
         targetValue = selectedIntereses.size / maxSelection.toFloat()
     )
 
+    val context = LocalContext.current
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -163,7 +167,17 @@ fun InterestsScreen(navController: NavController) {
 
             Button(
                 onClick = {
-                    navController.navigate("photo_upload_screen")
+                    viewModel.guardarIntereses (
+                        intereses = selectedIntereses,
+                        onSuccess = {
+                            navController.navigate("addphotos_screen") {
+                                popUpTo("interests_screen") { inclusive = true }
+                            }
+                        },
+                        onError = { error ->
+                            Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+                        }
+                    )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
