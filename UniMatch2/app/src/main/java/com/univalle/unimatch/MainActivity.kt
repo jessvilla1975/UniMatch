@@ -10,12 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.univalle.unimatch.presentation.view.AddPhotosScreen
 import com.univalle.unimatch.presentation.view.HomeScreen
 import com.univalle.unimatch.presentation.view.InterestsScreen
 import com.univalle.unimatch.ui.theme.UvMatchTheme
 import com.univalle.unimatch.presentation.view.LoginScreen
 import com.univalle.unimatch.presentation.view.RegisterScreen
 import com.univalle.unimatch.presentation.view.VerifyAccountScreen
+import com.univalle.unimatch.presentation.view.WelcomeScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -35,6 +37,9 @@ class MainActivity : ComponentActivity() {
                         composable("verifyAccount_screen") { VerifyAccountScreen(navController) }
                         composable("home_screen") {HomeScreen(navController)}
                         composable("interests_screen") { InterestsScreen(navController)}
+                        composable("welcome_screen") { WelcomeScreen(navController)}
+                        composable("addphotos_screen") { AddPhotosScreen(navController) }
+
                     }
 
                 }
