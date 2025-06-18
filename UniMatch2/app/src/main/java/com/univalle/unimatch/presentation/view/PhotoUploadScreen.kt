@@ -22,11 +22,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.univalle.unimatch.presentation.viewmodel.PhotoViewModel
+import com.univalle.unimatch.ui.theme.UvMatchTheme
 import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -308,5 +311,13 @@ fun PhotoUploadScreen(navController: NavController) {
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PhotoUploadScreenPreview() {
+    UvMatchTheme {
+        PhotoUploadScreen(navController = rememberNavController())
     }
 }
