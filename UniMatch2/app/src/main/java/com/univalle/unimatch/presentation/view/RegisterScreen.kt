@@ -1,6 +1,5 @@
 package com.univalle.unimatch.presentation.view
 
-import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -185,7 +184,7 @@ fun RegisterScreen(navController: NavController) {
                     viewModel.iniciarRegistro(
                         context = context,
                         onSuccess = {
-                            navController.navigate("verifyAccount_screen")
+                            navController.navigate("VerifyAccount_screen")
                         },
                     )
                 },
