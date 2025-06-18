@@ -1,200 +1,223 @@
-package com.univalle.unimatch.presentation.view
-
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.runtime.*
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.shape.*
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.ui.*
+import androidx.compose.ui.draw.*
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.text.font.*
+import androidx.compose.ui.unit.*
+import androidx.compose.ui.text.style.*
+import androidx.compose.ui.layout.*
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-
 import com.univalle.unimatch.R
 import com.univalle.unimatch.ui.theme.UvMatchTheme
 
 @Composable
 fun ProfileScreen(navController: NavController) {
-    Box(
+    Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFB00000)) // Rojo fondo
-    ) {
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(
+                color = Color(0xFFFFFFFF),
+            )
+    ){
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // Espacio superior aún mayor para bajar más todo el contenido
-            Spacer(modifier = Modifier.height(90.dp))
-
-            // Iconos superiores
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
-                RoundedIcon("ic_user", 46.dp, 20.dp)
-                RoundedIcon("ic_flame", 46.dp, 20.dp)
-                RoundedIcon("ic_chat", 46.dp, 20.dp)
-            }
-
-            Spacer(modifier = Modifier.height(40.dp))
-
-            // Foto circular más grande
-
-            Box(
-                modifier = Modifier
-                    .size(220.dp)
-                    .clip(CircleShape)
-                    .background(Color.LightGray)
-            )
-
-            //Descomentar para poner foto
-            /*
-             Box(
-                modifier = Modifier
-                    .size(220.dp)
-                    .clip(CircleShape)
-                    .background(Color.LightGray),
-                contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.foto), // nombre de tu imagen SIN extensión
-                    contentDescription = "Foto de perfil",
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(CircleShape)
+                .fillMaxWidth()
+                .weight(1f)
+                .background(
+                    Brush.linearGradient(
+                        colors = listOf(Color(0xFFB30811), Color(0xFF000000)),
+                        start = Offset.Zero,
+                        end = Offset(0f, Float.POSITIVE_INFINITY)
+                    )
                 )
-            }
-             */
-
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Text(
-                text = "Carlos Camacho, 22",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White
-            )
-
-            Text(
-                text = "Co-Fundador y CEO\nBusco mona creída y belicosa.",
-                fontSize = 15.sp,
-                color = Color.White,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 8.dp)
-            )
-
-            Spacer(modifier = Modifier.height(40.dp))
-
-            // Botones inferiores en forma de V
-            Box(
+                .verticalScroll(rememberScrollState())
+        ){
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
+                    .padding(top = 53.dp,bottom = 43.dp,)
                     .fillMaxWidth()
-                    .height(160.dp),
-                contentAlignment = Alignment.TopCenter
-            ) {
-                // Botón de configuración (izquierda)
-                Box(
+            ){
+                // Top icons (barra superior)
+                Row(
                     modifier = Modifier
-                        .align(Alignment.TopStart)
-                        .padding(start = 20.dp),
-                    contentAlignment = Alignment.Center
+                        .fillMaxWidth()
+                        .padding(start = 70.dp, end = 70.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    RoundedIcon("ic_settings", 50.dp, 24.dp)
-                }
+                    // Botón: Perfil
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_user_white),
+                        contentDescription = "Profile",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.
+                        size(80.dp).background(Color(0xFFDF0814), shape = CircleShape)
+                    )
 
-                // Botón de cámara (centro y más abajo)
-                Box(
+                    // Botón: Logo central
+                    IconButton(
+                        onClick = { navController.navigate("Home_screen") },
+                        modifier = Modifier
+                            .size(65.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_uvmatch),
+                            contentDescription = "Home",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.
+                            size(55.dp).background(Color(0xFFDF0814), shape = CircleShape)
+                        )
+                    }
+
+                    // Botón: Chat
+                    IconButton(
+                        onClick = { navController.navigate("Chat_screen") },
+                        modifier = Modifier
+                            .size(65.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_chat_white),
+                            contentDescription = "Chat",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(55.dp).background(Color(0xFFDF0814), shape = CircleShape)
+                        )
+                    }
+                }
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .padding(top = 40.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    RoundedIcon("ic_camera", 75.dp, 38.dp)
+                        .padding(top=15.dp, bottom = 10.dp)
+                        .fillMaxWidth()
+                ){
+                    Image(
+                        painter = painterResource(id = R.drawable.perfil),
+                        contentDescription = "Imagen de perfil local",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(250.dp) // usa size para ancho y alto iguales
+                            .clip(CircleShape)
+                    )
                 }
-
-                // Botón de editar (derecha)
-                Box(
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(end = 20.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    RoundedIcon("ic_edit", 50.dp, 24.dp)
+                        .padding(top=10.dp, bottom = 5.dp)
+                        .fillMaxWidth()
+                ){
+                    Text("Carlos Camacho, 22",
+                        color = Color(0xFFFFFFFF),
+                        fontSize = 32.sp,
+                        fontWeight = FontWeight.Bold,
+                    )
                 }
-            }
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .padding(bottom = 53.dp,)
+                        .fillMaxWidth()
+                ){
+                    Text("Co-Fundador y CEO\nBusco mona creída y belicosa.",
+                        color = Color(0xFFFFFFFF),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .width(295.dp)
+                    )
+                }
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .padding(bottom = 40.dp,)
+                        .fillMaxWidth()
+                ){
+                    Row(
+                    ){
+                        IconButton(
+                            onClick = { /* Settings */ },
+                            modifier = Modifier
+                                .padding(end=40.dp)
+                                .size(80.dp)
+                                .border(width = 1.dp, color = Color.Red, shape = CircleShape)
+                                .padding(12.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_settings),
+                                contentDescription = "Settings",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .size(65.dp)
+                            )
+                        }
+                        IconButton(
+                            onClick = { /* Camera */ },
+                            modifier = Modifier
+                                .padding(top=40.dp, end=40.dp)
+                                .size(80.dp)
+                                .border(width = 1.dp, color = Color.Red, shape = CircleShape)
+                                .padding(12.dp)
 
-            // Espacio flexible para empujar el contenido hacia arriba
-            Spacer(modifier = Modifier.weight(1f))
-        }
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_camera),
+                                contentDescription = "Camera",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .size(70.dp)
 
-        // Botón de salir - mantenido en la posición anterior
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(end = 16.dp, bottom = 100.dp),
-            contentAlignment = Alignment.BottomEnd
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(50.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color.White)
-                    .clickable { /* Acción salir */ },
-                contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_logout),
-                    contentDescription = "Salir",
-                    modifier = Modifier.size(26.dp)
-                )
+                            )
+                        }
+                        IconButton(
+                            onClick = { /* Edit */ },
+                            modifier = Modifier
+                                .size(80.dp)
+                                .border(width = 1.dp, color = Color.Red, shape = CircleShape)
+                                .padding(12.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_edit),
+                                contentDescription = "Edit",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .size(70.dp)
+                            )
+                        }
+                    }
+                }
+                Column(
+                    horizontalAlignment = Alignment.End,
+                    modifier = Modifier
+                        .padding(bottom = 23.dp,)
+                        .fillMaxWidth()
+                ){
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_logout_white),
+                        contentDescription = "Logout",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .padding(end = 10.dp,)
+                            .width(57.dp)
+                            .height(57.dp)
+                    )
+                }
             }
         }
     }
 }
 
-@Composable
-fun RoundedIcon(drawableName: String, size: androidx.compose.ui.unit.Dp = 56.dp, iconSize: androidx.compose.ui.unit.Dp = 24.dp) {
-    Box(
-        modifier = Modifier
-            .size(size)
-            .clip(CircleShape)
-            .background(Color.White)
-            .clickable { /* Acción del botón */ },
-        contentAlignment = Alignment.Center
-    ) {
-        val iconId = when (drawableName) {
-            "ic_user" -> R.drawable.ic_user
-            "ic_flame" -> R.drawable.ic_flame
-            "ic_chat" -> R.drawable.ic_chat
-            "ic_settings" -> R.drawable.ic_settings
-            "ic_camera" -> R.drawable.ic_camera
-            "ic_edit" -> R.drawable.ic_edit
-            else -> R.drawable.ic_launcher_foreground
-        }
 
-        Image(
-            painter = painterResource(id = iconId),
-            contentDescription = drawableName,
-            modifier = Modifier.size(iconSize)
-        )
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
