@@ -1,11 +1,13 @@
 package com.univalle.unimatch
 
+import ProfileScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,9 +17,9 @@ import com.univalle.unimatch.presentation.view.HomeScreen
 import com.univalle.unimatch.presentation.view.InterestsScreen
 import com.univalle.unimatch.ui.theme.UvMatchTheme
 import com.univalle.unimatch.presentation.view.LoginScreen
-import com.univalle.unimatch.presentation.view.ProfileScreen
 import com.univalle.unimatch.presentation.view.RegisterScreen
 import com.univalle.unimatch.presentation.view.VerifyAccountScreen
+import com.univalle.unimatch.presentation.view.PhotoUploadScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -39,10 +41,12 @@ class MainActivity : ComponentActivity() {
                         composable("Interests_screen") { InterestsScreen(navController)}
                         composable("Profile_screen") { ProfileScreen(navController) }
                         composable("Chat_screen") { ChatScreen(navController) }
+                        composable("photo_upload_screen") { PhotoUploadScreen(navController) }
+
+                        }
                     }
 
                 }
             }
         }
     }
-}

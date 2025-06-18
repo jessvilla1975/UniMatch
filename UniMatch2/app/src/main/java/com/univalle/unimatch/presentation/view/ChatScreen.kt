@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
 import androidx.compose.ui.layout.ContentScale
@@ -24,7 +23,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import androidx.compose.foundation.Image
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.runtime.getValue
@@ -49,7 +47,7 @@ fun ChatScreen(navController: NavController) {
                 .weight(1f)
                 .background(
                     Brush.linearGradient(
-                        colors = listOf(Color(0xFFB30811), Color(0xFF4D0307)),
+                        colors = listOf(Color(0xFFB30811), Color(0xFF000000)),
                         start = Offset.Zero,
                         end = Offset(0f, Float.POSITIVE_INFINITY)
                     )
@@ -115,7 +113,7 @@ fun ChatScreen(navController: NavController) {
                             painter = painterResource(id = R.drawable.ic_uvmatch),
                             contentDescription = "Home",
                             contentScale = ContentScale.Crop,
-                            modifier = Modifier.size(60.dp)
+                            modifier = Modifier.size(85.dp)
                         )
                     }
                     // Botón: Chat
