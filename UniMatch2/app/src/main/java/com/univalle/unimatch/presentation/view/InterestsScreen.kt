@@ -27,11 +27,14 @@ import androidx.compose.animation.core.animateFloatAsState
 import com.univalle.unimatch.ui.theme.UvMatchTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.draw.clip
-
+import androidx.compose.ui.graphics.Brush
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
+import com.univalle.unimatch.presentation.viewmodel.InterestsViewModel
 
 
 @Composable
-fun InterestsScreen(navController: NavController) {
+fun InterestsScreen(navController: NavController, viewModel: InterestsViewModel = InterestsViewModel()) {
     val maxSelection = 5
     val intereses = listOf(
         "Cine",
@@ -68,10 +71,15 @@ fun InterestsScreen(navController: NavController) {
         targetValue = selectedIntereses.size / maxSelection.toFloat()
     )
 
+    val context = LocalContext.current
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFB00020))
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(Color(0xFFB30811), Color(0xFF4D0307))
+                )
+            )
     ) {
         Column(
             modifier = Modifier
@@ -159,7 +167,17 @@ fun InterestsScreen(navController: NavController) {
 
             Button(
                 onClick = {
-                    // Acción cuando presionas continuar
+                    viewModel.guardarIntereses (
+                        intereses = selectedIntereses,
+                        onSuccess = {
+                            navController.navigate("addphotos_screen") {
+                                popUpTo("interests_screen") { inclusive = true }
+                            }
+                        },
+                        onError = { error ->
+                            Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+                        }
+                    )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
