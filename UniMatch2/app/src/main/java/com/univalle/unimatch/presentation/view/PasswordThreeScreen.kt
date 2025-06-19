@@ -1,4 +1,3 @@
-
 package com.univalle.unimatch.presentation.view
 
 import androidx.compose.foundation.Image
@@ -28,14 +27,41 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.univalle.unimatch.R
 import com.univalle.unimatch.ui.theme.UvMatchTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.univalle.unimatch.presentation.viewmodel.PasswordRecoveryViewModel
 
 @Composable
 fun PasswordThreeScreen(
+    navController: NavController? = null,
     onBackClick: () -> Unit = {},
-    onConfirm: (String, String) -> Unit = { _, _ -> }
+    viewModel: PasswordRecoveryViewModel = viewModel()
 ) {
-    var newPassword by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
+    val newPassword = viewModel.newPassword.collectAsState().value
+    val confirmPassword = viewModel.confirmPassword.collectAsState().value
+    val uiState = viewModel.uiState.collectAsState().value
+    var showError by remember { mutableStateOf<String?>(null) }
+    var showSuccess by remember { mutableStateOf(false) }
+
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is PasswordRecoveryViewModel.UiState.PasswordChanged -> {
+                showSuccess = true
+                viewModel.resetState()
+            }
+            is PasswordRecoveryViewModel.UiState.Error -> {
+                showError = uiState.message
+            }
+            else -> {}
+        }
+    }
+    if (showSuccess) {
+        // Mostrar mensaje y navegar a login
+        LaunchedEffect(Unit) {
+            kotlinx.coroutines.delay(1500)
+            navController?.navigate("Login_screen")
+        }
+        Text("Contraseña cambiada con éxito", color = Color.Green, modifier = Modifier.padding(16.dp))
+    }
 
     Column(
         modifier = Modifier
@@ -104,7 +130,7 @@ fun PasswordThreeScreen(
 
         OutlinedTextField(
             value = newPassword,
-            onValueChange = { newPassword = it },
+            onValueChange = { viewModel.newPassword.value = it },
             placeholder = { Text("Ingrese la nueva contraseña") },
             label = { Text("Contraseña nueva") },
             leadingIcon = {
@@ -130,7 +156,7 @@ fun PasswordThreeScreen(
 
         OutlinedTextField(
             value = confirmPassword,
-            onValueChange = { confirmPassword = it },
+            onValueChange = { viewModel.confirmPassword.value = it },
             placeholder = { Text("Confirme la nueva contraseña") },
             label = { Text("Confirmar contraseña nueva") },
             leadingIcon = {
@@ -155,7 +181,7 @@ fun PasswordThreeScreen(
         Spacer(modifier = Modifier.height(32.dp))
 
         OutlinedButton(
-            onClick = { onConfirm(newPassword, confirmPassword) },
+            onClick = { viewModel.changePassword() },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -172,6 +198,10 @@ fun PasswordThreeScreen(
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold
             )
+        }
+
+        if (showError != null) {
+            Text(showError!!, color = Color.Yellow, modifier = Modifier.padding(top = 8.dp))
         }
     }
 }
