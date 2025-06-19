@@ -170,7 +170,7 @@ fun InterestsScreen(navController: NavController, viewModel: InterestsViewModel 
                     viewModel.guardarIntereses (
                         intereses = selectedIntereses,
                         onSuccess = {
-                            navController.navigate("Addphotos_screen") {
+                            navController.navigate("Add_photos_screen") {
                                 popUpTo("Interests_screen") { inclusive = true }
                             }
                         },
