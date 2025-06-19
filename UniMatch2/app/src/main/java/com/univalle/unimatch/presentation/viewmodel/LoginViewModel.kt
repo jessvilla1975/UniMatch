@@ -4,32 +4,27 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.univalle.unimatch.data.repository.GoogleAuthClient
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
-open class LoginViewModel: ViewModel() {
-
+open class LoginViewModel(
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val _loginResult = MutableStateFlow<Result<Boolean>?>(null)
-    open val loginResult: MutableStateFlow<Result<Boolean>?> = _loginResult
+) : ViewModel() {
 
-    lateinit var googleAuthClient: GoogleAuthClient
+    val loginResult = MutableStateFlow<Result<Boolean>?>(null)
 
     open fun loginUser(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    _loginResult.value = Result.success(true)
+                    loginResult.value = Result.success(true)
                 } else {
-                    _loginResult.value = Result.failure(task.exception ?: Exception("Credenciales incorrectas"))
+                    loginResult.value = Result.failure(task.exception ?: Exception("Credenciales incorrectas"))
                 }
             }
     }
 
-    open fun resetLoginResult() {
-        _loginResult.value = null
+    fun resetLoginResult() {
+        loginResult.value = null
     }
-
-    fun setGoogleClient(client: GoogleAuthClient) {
-        googleAuthClient = client
-    }
-
 }
+
