@@ -14,6 +14,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -40,14 +41,15 @@ fun PasswordThreeScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                Brush.verticalGradient(
-                    colors = listOf(Color(0xFFB00020), Color(0xFF8B0000))
-                )
+                Brush.linearGradient(
+                    colors = listOf(Color(0xFFB30811), Color(0xFF000000)),
+                    start = Offset.Zero,
+                    end = Offset(0f, Float.POSITIVE_INFINITY))
             )
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(80.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         Row(
             modifier = Modifier
@@ -69,26 +71,23 @@ fun PasswordThreeScreen(
 
             Spacer(modifier = Modifier.width(8.dp))
 
+            Spacer(modifier = Modifier.weight(0.5f)) // Empuja desde la izquierda
+
+// A:       //Logo de la app
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = "App Logo",
-                modifier = Modifier.size(60.dp) // Aumentado de 40.dp a 60.dp
+                modifier = Modifier.size(200.dp), // Aumentado de 40.dp a 60.d
             )
+            Spacer(modifier = Modifier.weight(1.2f)) // Empuja desde la derecha
 
-            Text(
-                text = "UNI MATCH",
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                modifier = Modifier.padding(start = 8.dp)
-            )
         }
 
-        Spacer(modifier = Modifier.height(120.dp))
+        Spacer(modifier = Modifier.height(6.dp))
 
         Text(
             text = "RECUPERACIÓN DE CONTRASEÑA",
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
             color = Color.White
         )
@@ -96,8 +95,8 @@ fun PasswordThreeScreen(
         Spacer(modifier = Modifier.height(6.dp))
 
         Text(
-            text = "Ya puedes cambiar tu contraseña",
-            fontSize = 14.sp,
+            text = "Establece tu nueva contraseña",
+            fontSize = 12.sp,
             color = Color.White
         )
 
