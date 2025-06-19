@@ -12,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -31,15 +32,16 @@ fun WelcomeScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .background(
-                Brush.verticalGradient(
-                    colors = listOf(Color(0xFFB30811), Color(0xFF4D0307))
-                )
+                Brush.linearGradient(
+                    colors = listOf(Color(0xFFB30811), Color(0xFF000000)),
+                    start = Offset.Zero,
+                    end = Offset(0f, Float.POSITIVE_INFINITY))
             )
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .padding(16.dp)
+                .padding(20.dp)
                 .fillMaxSize()
         ) {
             // Flecha de retroceso
@@ -57,20 +59,17 @@ fun WelcomeScreen(navController: NavController) {
                 }
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
 
             // Ícono central (puede reemplazarse con el logo de la universidad de acuerdo al figma)
             Image(
                 painter = painterResource(id = R.drawable.logo), // logo aquí
                 contentDescription = "Logo",
                 modifier = Modifier
-                    .size(80.dp)
+                    .size(200.dp)
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
-
             Text(
-                text = "Bienvenido a UniMatch",
+                text = "Bienvenid@ a UniMatch",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
