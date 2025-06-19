@@ -1,11 +1,11 @@
 package com.univalle.unimatch.presentation.view
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,17 +22,57 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.univalle.unimatch.presentation.viewmodel.AddPhotosViewModel
 import com.univalle.unimatch.ui.theme.UvMatchTheme
-
+import android.net.Uri
+import android.widget.Toast
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.runtime.remember
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.lifecycle.ViewModel
+import coil.compose.AsyncImage
+import com.univalle.unimatch.data.repository.AddPhotoRepository
+import androidx.lifecycle.ViewModelProvider
 
 
 @Composable
-fun AddphotosScreen() {
+fun AddPhotosScreen(
+    navController: NavController
+) {
+
+    val context = LocalContext.current
+    // Crear el repositorio manualmente
+    val repository = remember { AddPhotoRepository() }
+
+    // Crear el ViewModel manualmente con una factory personalizada
+    val viewModel: AddPhotosViewModel = viewModel(
+        factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return AddPhotosViewModel(repository, context) as T
+            }
+        }
+    )
+
+    val photoUris = viewModel.photoUris
+    val imagePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let { viewModel.addPhoto(it) }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -40,83 +80,89 @@ fun AddphotosScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Título
-        Text(
-            text = "Agrega fotos",
-            style = TextStyle(
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black
-            ),
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
+        Text("Agrega fotos", style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold))
 
-        // Subtítulo
-        Text(
-            text = "Agrega al menos 2 fotos para poder",
-            style = TextStyle(
-                fontSize = 16.sp,
-                color = Color.Gray
-            ),
-            modifier = Modifier.padding(bottom = 4.dp)
-        )
+        Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = "continuar",
-            style = TextStyle(
-                fontSize = 16.sp,
-                color = Color.Gray
-            ),
-            modifier = Modifier.padding(bottom = 32.dp)
-        )
+        Text("Agrega al menos 2 fotos para poder continuar", color = Color.Gray)
 
-        // Espacio para fotos (simulado)
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.padding(bottom = 32.dp)
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // Grid de fotos
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(3),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier
+                .height(250.dp)
+                .fillMaxWidth()
         ) {
-            Box(
-                modifier = Modifier
-                    .size(120.dp)
-                    .background(Color.LightGray, shape = RoundedCornerShape(8.dp))
-                    .border(1.dp, Color.Gray, RoundedCornerShape(8.dp)),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Agregar foto",
-                    tint = Color.Gray,
-                    modifier = Modifier.size(40.dp)
-                )
-            }
-
-            Box(
-                modifier = Modifier
-                    .size(120.dp)
-                    .background(Color.LightGray, shape = RoundedCornerShape(8.dp))
-                    .border(1.dp, Color.Gray, RoundedCornerShape(8.dp)),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Agregar foto",
-                    tint = Color.Gray,
-                    modifier = Modifier.size(40.dp)
-                )
+            items(photoUris.size) { index ->
+                val uri = photoUris[index]
+                Box(
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(Color.LightGray)
+                        .clickable {
+                            if (uri == null) {
+                                imagePickerLauncher.launch("image/*")
+                            } else {
+                                viewModel.removePhoto(index)
+                            }
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (uri == null) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Agregar foto",
+                            tint = Color.Gray,
+                            modifier = Modifier.size(40.dp)
+                        )
+                    } else {
+                        AsyncImage(
+                            model = uri,
+                            contentDescription = "Foto $index",
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop
+                        )
+                    }
+                }
             }
         }
 
-        // Botón CONTINUAR
-        Button(
-            onClick = { /* Sin lógica */ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFD81B60)
-            )
-        ) {
-            Text("CONTINUAR", fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(32.dp))
+
+        if (viewModel.isLoading){
+            CircularProgressIndicator()
+        } else {
+            Button(
+                onClick = {
+                    if (viewModel.canContinue()) {
+                        viewModel.uploadPhotos (
+                            onSuccess = {
+                                navController.navigate("Welcome_screen"){
+                                    popUpTo("Interests_screen") { inclusive = true }
+                                }
+                            },
+                            onError = { message ->
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                            }
+                        )
+                    } else {
+                        Toast.makeText(context, "Agrega al menos 2 fotos", Toast.LENGTH_SHORT).show()
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFD81B60)
+                )
+            ) {
+                Text("CONTINUAR", fontWeight = FontWeight.Bold)
+            }
         }
     }
 }
@@ -125,7 +171,7 @@ fun AddphotosScreen() {
 @Composable
 fun AddPhotosScreenPreview() {
     UvMatchTheme {
-        AddphotosScreen()
+        AddPhotosScreen( navController = NavController(LocalContext.current))
     }
 }
 

@@ -20,19 +20,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.univalle.unimatch.R
 import com.univalle.unimatch.presentation.viewmodel.LoginViewModel
-import com.univalle.unimatch.ui.theme.UvMatchTheme
 import kotlinx.coroutines.launch
 import com.univalle.unimatch.data.repository.GoogleAuthClient
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 
 @Composable
@@ -231,7 +226,7 @@ fun LoginScreen(
                         fontWeight = FontWeight.Bold,
                         textDecoration = TextDecoration.Underline, // Subrayado
                         modifier = Modifier.clickable {
-                            navController.navigate("register_screen") // Navega a la pantalla de registro
+                            navController.navigate("Register_screen") // Navega a la pantalla de registro
                         }
                     )
                 }
@@ -239,8 +234,8 @@ fun LoginScreen(
             LaunchedEffect(loginResult) {
                 loginResult?.let {
                     it.onSuccess {
-                        navController.navigate("home_screen") {
-                            popUpTo("login_screen") { inclusive = true }
+                        navController.navigate("Home_screen") {
+                            popUpTo("Login_screen") { inclusive = true }
                         }
                     }.onFailure {
                         coroutineScope.launch {

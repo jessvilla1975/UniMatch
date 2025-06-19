@@ -103,7 +103,11 @@ fun WelcomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
-                onClick = { /* Navegar o continuar */ },
+                onClick = {
+                    navController.navigate("Home_screen") {
+                        popUpTo("Interests_screen") { inclusive = true }
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp),

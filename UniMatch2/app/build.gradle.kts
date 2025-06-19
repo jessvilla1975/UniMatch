@@ -81,6 +81,15 @@ dependencies {
     implementation ("androidx.compose.material3:material3:1.1.2")
     implementation("io.coil-kt:coil-compose:2.2.2")
 
+// Para pruebas unitarias básicas con JUnit
+    testImplementation("junit:junit:4.13.2")
+
+// Para simular FirebaseAuth y tareas asincrónicas
+    testImplementation("org.mockito:mockito-core:5.2.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
+
+// Para probar corrutinas de StateFlow/LiveData
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 
     implementation (libs.material3)
     implementation (libs.androidx.material.icons.extended)
@@ -101,6 +110,7 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.androidx.navigation.runtime.android)
     implementation (libs.landscapist.coil)
+    implementation(libs.firebase.storage.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -108,6 +118,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    testImplementation(kotlin("test"))
 
 
 }
