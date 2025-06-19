@@ -20,14 +20,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.univalle.unimatch.R
 import com.univalle.unimatch.presentation.viewmodel.LoginViewModel
 import kotlinx.coroutines.launch
 import com.univalle.unimatch.data.repository.GoogleAuthClient
+import com.univalle.unimatch.ui.theme.UvMatchTheme
+
 
 
 @Composable
@@ -249,4 +253,15 @@ fun LoginScreen(
     }
 }
 
-
+@Preview(
+    showBackground = true,
+    name = "Login Screen",
+    device = "id:pixel_4",
+    showSystemUi = true
+)
+@Composable
+fun LoginScreenPreview() {
+    UvMatchTheme {
+        LoginScreen(navController = rememberNavController())
+    }
+}

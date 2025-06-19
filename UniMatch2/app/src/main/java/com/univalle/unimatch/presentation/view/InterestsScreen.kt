@@ -77,7 +77,7 @@ fun InterestsScreen(navController: NavController, viewModel: InterestsViewModel 
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    colors = listOf(Color(0xFFB30811), Color(0xFF4D0307))
+                    colors = listOf(Color(0xFFB30811), Color(0xFF7C5A5C))
                 )
             )
     ) {

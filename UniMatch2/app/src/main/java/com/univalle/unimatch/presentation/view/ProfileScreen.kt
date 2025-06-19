@@ -151,6 +151,7 @@ fun ProfileScreen(navController: NavController) {
                                 .padding(end=40.dp)
                                 .size(80.dp)
                                 .border(width = 1.dp, color = Color.Red, shape = CircleShape)
+                                .background(color = Color.White, shape = CircleShape)
                                 .padding(12.dp)
                         ) {
                             Image(
@@ -167,6 +168,7 @@ fun ProfileScreen(navController: NavController) {
                                 .padding(top=40.dp, end=40.dp)
                                 .size(80.dp)
                                 .border(width = 1.dp, color = Color.Red, shape = CircleShape)
+                                .background(color = Color.White, shape = CircleShape)
                                 .padding(12.dp)
 
                         ) {
@@ -184,6 +186,7 @@ fun ProfileScreen(navController: NavController) {
                             modifier = Modifier
                                 .size(80.dp)
                                 .border(width = 1.dp, color = Color.Red, shape = CircleShape)
+                                .background(color = Color.White, shape = CircleShape)
                                 .padding(12.dp)
                         ) {
                             Image(
