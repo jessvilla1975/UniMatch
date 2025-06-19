@@ -29,6 +29,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import android.widget.Toast
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalContext
 import com.univalle.unimatch.presentation.viewmodel.InterestsViewModel
 
@@ -74,13 +75,14 @@ fun InterestsScreen(navController: NavController, viewModel: InterestsViewModel 
     val context = LocalContext.current
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(Color(0xFFB30811), Color(0xFF7C5A5C))
-                )
+            .fillMaxSize().background(
+                Brush.linearGradient(
+                    colors = listOf(Color(0xFFB30811), Color(0xFF000000)),
+                    start = Offset.Zero,
+                    end = Offset(0f, Float.POSITIVE_INFINITY))
             )
-    ) {
+            )
+     {
         Column(
             modifier = Modifier
                 .padding(16.dp)

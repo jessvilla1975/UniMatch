@@ -1,6 +1,7 @@
 package com.univalle.unimatch.presentation.view
 
 import androidx.compose.foundation.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -18,6 +19,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -40,7 +43,12 @@ fun RegisterScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFCD1F32))
+            .background(
+            Brush.linearGradient(
+                colors = listOf(Color(0xFFB30811), Color(0xFF000000)),
+                start = Offset.Zero,
+                end = Offset(0f, Float.POSITIVE_INFINITY))
+        )
     ) {
         Column(
             modifier = Modifier
@@ -73,15 +81,15 @@ fun RegisterScreen(navController: NavController) {
 
                 Text(
                     text = "UNI MATCH",
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.SemiBold,
                     color = Color.White
                 )
             }
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text("REGISTRO", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White)
+            Text("REGISTRO", fontSize = 22.sp, fontWeight = FontWeight.SemiBold, color = Color.White)
 
             Spacer(modifier = Modifier.height(16.dp))
 

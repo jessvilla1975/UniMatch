@@ -10,6 +10,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -37,9 +39,14 @@ fun VerifyAccountScreen (
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFCD1F32)), // Color de Fondo
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(Color(0xFFB30811), Color.Black)
+                )
+            ),
         contentAlignment = Alignment.TopCenter
-    ){
+    )
+{
         Column (
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(16.dp)
@@ -58,21 +65,16 @@ fun VerifyAccountScreen (
                     )
                 }
 
-                Spacer(modifier = Modifier.width(1.dp))
+                Spacer(modifier = Modifier.width(3.dp))
 
                 Image(
                     painter = painterResource(id = R.drawable.logo), // Reemplaza "logo" con el nombre de tu imagen en drawable
                     contentDescription = "Logo de Uni Match",
                     modifier = Modifier
-                        .size(80.dp) // Ajusta el tamaño del logo
+                        .size(200.dp) // Ajusta el tamaño del logo
                 )
                 Spacer(modifier = Modifier.width(1.dp))
-                Text(
-                    text = "UNI MATCH",
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
-                )
+
             }
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -80,14 +82,14 @@ fun VerifyAccountScreen (
             Text(
                 text = "VERIFICA TU CUENTA",
                 fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.SemiBold,
                 color = Color.White
             )
             Spacer(modifier = Modifier.height(8.dp))
 
             // Subtítulo
             Text(
-                text = "INGRESA A TU CORREO Y VERIFICA CON EL LINK QUE LLEGO A TU CORREO",
+                text = "Verifica tu cuenta con el link que enviamos a tu correo",
                 fontSize = 14.sp,
                 color = Color.White,
                 textAlign = TextAlign.Center

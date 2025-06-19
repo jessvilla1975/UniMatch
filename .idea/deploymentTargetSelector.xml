@@ -39,6 +39,9 @@
           </targets>
         </DialogSelection>
       </SelectionState>
+      <SelectionState runConfigName="AddPhotosScreen">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>
