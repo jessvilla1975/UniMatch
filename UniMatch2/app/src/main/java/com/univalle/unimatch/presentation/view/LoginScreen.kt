@@ -200,7 +200,7 @@ fun LoginScreen(
                     text = "¿OLVIDASTE TU CONTRASEÑA?",
                     color = Color.White,
                     fontSize = 14.sp,
-                    modifier = Modifier.clickable { /* Navegar a recuperación */ }
+                    modifier = Modifier.clickable { navController.navigate("PasswordOne_screen") }
                 )
 
                 Spacer(modifier = Modifier.height(32.dp))

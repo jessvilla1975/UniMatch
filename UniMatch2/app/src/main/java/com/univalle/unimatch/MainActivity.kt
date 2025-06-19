@@ -48,6 +48,8 @@ class MainActivity : ComponentActivity() {
                         composable("Profile_screen") { ProfileScreen(navController) }
                         composable("Chat_screen") { ChatScreen(navController) }
                         composable("photo_upload_screen") { PhotoUploadScreen(navController = navController) }
+                        composable("PasswordOne_screen") { com.univalle.unimatch.presentation.view.PasswordOneScreen(navController) }
+
                     }
                 }
             }

@@ -25,14 +25,43 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.univalle.unimatch.R
 import com.univalle.unimatch.ui.theme.UvMatchTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.univalle.unimatch.presentation.viewmodel.PasswordRecoveryViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun PasswordOneScreen(
     navController: NavController,
     onBackClick: () -> Unit = {},
-    onSendCode: (String) -> Unit = {}
+    viewModel: PasswordRecoveryViewModel = viewModel()
 ) {
-    var email by remember { mutableStateOf("") }
+    val email = viewModel.email.collectAsState().value
+    val uiState = viewModel.uiState.collectAsState().value
+    var showError by remember { mutableStateOf<String?>(null) }
+    var showSuccess by remember { mutableStateOf(false) }
+
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is PasswordRecoveryViewModel.UiState.CodeSent -> {
+                showSuccess = true
+                viewModel.resetState()
+            }
+            is PasswordRecoveryViewModel.UiState.Error -> {
+                showError = uiState.message
+            }
+            else -> {}
+        }
+    }
+
+    // Mostrar mensaje de éxito durante 5 segundos y luego navegar
+    LaunchedEffect(showSuccess) {
+        if (showSuccess) {
+            kotlinx.coroutines.delay(5000)
+            navController.navigate("Login_screen")
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -100,8 +129,8 @@ fun PasswordOneScreen(
 
         OutlinedTextField(
             value = email,
-            onValueChange = { email = it },
-            placeholder = { Text("ejemplo@correo.com") },
+            onValueChange = { viewModel.email.value = it },
+            placeholder = { Text("ejemplo@correounivalle.edu.com") },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Email,
@@ -123,7 +152,7 @@ fun PasswordOneScreen(
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = { onSendCode(email) },
+            onClick = { viewModel.sendCode() },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -136,6 +165,14 @@ fun PasswordOneScreen(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
+        }
+
+        if (showError != null) {
+            Text(showError!!, color = Color.Yellow, modifier = Modifier.padding(top = 8.dp))
+        }
+
+        if (showSuccess) {
+            Text("Correo enviado con éxito", color = Color.Green, modifier = Modifier.padding(top = 8.dp))
         }
     }
 }
