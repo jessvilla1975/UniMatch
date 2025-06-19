@@ -29,9 +29,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            UvMatchTheme (){
+            UvMatchTheme() {
                 val navController = rememberNavController() // Inicializamos NavController
-                Scaffold (modifier = Modifier.fillMaxSize()){ innerPadding ->
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
                         startDestination = "Login_screen",
@@ -40,15 +40,16 @@ class MainActivity : ComponentActivity() {
                         composable("Login_screen") { LoginScreen(navController) }
                         composable("Register_screen") { RegisterScreen(navController) }
                         composable("VerifyAccount_screen") { VerifyAccountScreen(navController) }
-                        composable("Home_screen") {HomeScreen(navController)}
+                        composable("Home_screen") { HomeScreen(navController) }
                         composable("Welcome_screen") { WelcomeScreen(navController) }
-                        composable("Interests_screen") { InterestsScreen(navController)}
+                        composable("Interests_screen") { InterestsScreen(navController) }
                         composable("Add_photos_screen") { AddPhotosScreen(navController) }
                         composable("Profile_screen") { ProfileScreen(navController) }
                         composable("Chat_screen") { ChatScreen(navController) }
-			            composable("photo_upload_screen") { PhotoUploadScreen(navController = navController) }
+                        composable("photo_upload_screen") { PhotoUploadScreen(navController = navController) }
                     }
                 }
             }
         }
     }
+}
