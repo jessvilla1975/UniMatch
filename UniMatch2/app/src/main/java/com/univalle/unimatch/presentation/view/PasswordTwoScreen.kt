@@ -25,14 +25,31 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.univalle.unimatch.R
 import com.univalle.unimatch.ui.theme.UvMatchTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.univalle.unimatch.presentation.viewmodel.PasswordRecoveryViewModel
 
 @Composable
 fun PasswordTwoScreen(
     navController: NavController,
     onBackClick: () -> Unit = {},
-    onSubmitCode: (String) -> Unit = {}
+    viewModel: PasswordRecoveryViewModel = viewModel()
 ) {
-    var code by remember { mutableStateOf("") }
+    val code = viewModel.code.collectAsState().value
+    val uiState = viewModel.uiState.collectAsState().value
+    var showError by remember { mutableStateOf<String?>(null) }
+
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is PasswordRecoveryViewModel.UiState.CodeValidated -> {
+                navController.navigate("PasswordThree_screen")
+                viewModel.resetState()
+            }
+            is PasswordRecoveryViewModel.UiState.Error -> {
+                showError = uiState.message
+            }
+            else -> {}
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -105,7 +122,7 @@ fun PasswordTwoScreen(
 
         OutlinedTextField(
             value = code,
-            onValueChange = { code = it },
+            onValueChange = { viewModel.code.value = it },
             placeholder = { Text("••••••") },
             leadingIcon = {
                 Icon(
@@ -129,7 +146,7 @@ fun PasswordTwoScreen(
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = { onSubmitCode(code) },
+            onClick = { viewModel.validateCode() },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -142,6 +159,10 @@ fun PasswordTwoScreen(
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold
             )
+        }
+
+        if (showError != null) {
+            Text(showError!!, color = Color.Yellow, modifier = Modifier.padding(top = 8.dp))
         }
     }
 }
