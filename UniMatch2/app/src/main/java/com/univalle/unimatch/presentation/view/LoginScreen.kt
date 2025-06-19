@@ -13,6 +13,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -84,7 +86,12 @@ fun LoginScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFCD1F32)) // Rojo de fondo
+                .background(
+                    Brush.linearGradient(
+                        colors = listOf(Color(0xFFB30811), Color(0xFF000000)),
+                        start = Offset.Zero,
+                        end = Offset(0f, Float.POSITIVE_INFINITY))
+                )
                 .padding(innerPadding),
             contentAlignment = Alignment.Center
         ) {
@@ -98,20 +105,20 @@ fun LoginScreen(
                 Text(
                     text = "UNI MATCH",
                     fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.SemiBold,
                     color = Color.White
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(14.dp))
 
                 Image(
                     painter = painterResource(id = R.drawable.logo), // Reemplaza "logo" con el nombre de tu imagen en drawable
                     contentDescription = "Logo de Uni Match",
                     modifier = Modifier
-                        .size(150.dp) // Ajusta el tamaño del logo
+                        .size(200.dp) // Ajusta el tamaño del logo
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(14.dp))
 
                 //Campos de entrada
                 OutlinedTextField(
