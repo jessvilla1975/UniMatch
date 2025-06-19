@@ -1,6 +1,6 @@
 package com.univalle.unimatch
 
-import ProfileScreen
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,6 +23,7 @@ import com.univalle.unimatch.presentation.view.RegisterScreen
 import com.univalle.unimatch.presentation.view.VerifyAccountScreen
 import com.univalle.unimatch.presentation.view.PhotoUploadScreen
 import com.univalle.unimatch.presentation.view.WelcomeScreen
+import com.univalle.unimatch.presentation.view.ProfileScreen
 
 
 class MainActivity : ComponentActivity() {
